@@ -10,7 +10,7 @@
 #include "TextClass.h"
 #include "ModelListClass.h"
 #include "FrustumClass.h"
-#include "DepthShaderClass.h"
+#include "TextureShaderClass.h"
 
 const bool FULL_SCREEN = false;
 const bool VSYNC_ENABLED = true;
@@ -41,7 +41,7 @@ private:
 	LightClass* m_Light;
 	TextClass* m_Text;
 	BitmapClass* m_Bitmap;
-	DepthShaderClass* m_DepthShader;
+	TextureShaderClass* m_TextureShader;
 };
 
 #endif // ! _GRAPHICSCLASS_

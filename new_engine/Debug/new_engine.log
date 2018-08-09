@@ -57,5 +57,6 @@ d:\program files (x86)\microsoft directx sdk (june 2010)\include\d3d10.h(609): w
   d:\program files (x86)\windows kits\8.1\include\shared\winerror.h(50454): note: 参见“D3D10_ERROR_FILE_NOT_FOUND”的前一个定义
 c:\users\sun\vs_projects\new_engine\new_engine\graphicsclass.cpp(289): warning C4101: “rotation”: 未引用的局部变量
 c:\users\sun\vs_projects\new_engine\new_engine\graphicsclass.cpp(288): warning C4101: “angle”: 未引用的局部变量
+cl : 命令行 warning D9028: 最小重新生成失败，正在转换为标准生成
   new_engine.vcxproj -> C:\Users\Sun\vs_projects\new_engine\Debug\new_engine.exe
   new_engine.vcxproj -> C:\Users\Sun\vs_projects\new_engine\Debug\new_engine.pdb (Partial PDB)

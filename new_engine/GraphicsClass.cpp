@@ -9,7 +9,7 @@ GraphicsClass::GraphicsClass()
 	m_Text = 0;
 	m_Bitmap = 0;
 	m_FloorModel = 0;
-	m_DepthShader = 0;
+	m_TextureShader = 0;
 }
 
 
@@ -56,14 +56,14 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	m_Camera->GetViewMatrix(baseViewMatrix);
 
 	// Create the texture shader object.
-	m_DepthShader = new DepthShaderClass;
-	if (!m_DepthShader)
+	m_TextureShader = new TextureShaderClass;
+	if (!m_TextureShader)
 	{
 		return false;
 	}
 
 	// Initialize the texture shader object.
-	result = m_DepthShader->Initialize(m_D3D->GetDevice(), hwnd);
+	result = m_TextureShader->Initialize(m_D3D->GetDevice(), hwnd);
 	if (!result)
 	{
 		MessageBox(hwnd, L"Could not initialize the texture shader object.", L"Error", MB_OK);
@@ -137,7 +137,7 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd)
 	}
 
 	// Initialize the floor model object.
-	result = m_FloorModel->Initialize(m_D3D->GetDevice(), "../new_engine/data/floor.txt", L"../new_engine/data/grid01.dds",
+	result = m_FloorModel->Initialize(m_D3D->GetDevice(), "../new_engine/data/floor.txt", L"../new_engine/data/seafloor.dds",
 		L"../new_engine/data/grid01.dds", L"../new_engine/data/grid01.dds");
 	if (!result)
 	{
@@ -161,11 +161,11 @@ void GraphicsClass::Shutdown()
 	}
 
 	// Release the depth shader object.
-	if (m_DepthShader)
+	if (m_TextureShader)
 	{
-		m_DepthShader->Shutdown();
-		delete m_DepthShader;
-		m_DepthShader = 0;
+		m_TextureShader->Shutdown();
+		delete m_TextureShader;
+		m_TextureShader = 0;
 	}
 
 	// Release the debug window object.
@@ -300,7 +300,12 @@ bool GraphicsClass::RenderScene()
 	m_FloorModel->Render(m_D3D->GetDeviceContext());
 
 	// Render the floor model using the texture shader.
-	result = m_DepthShader->Render(m_D3D->GetDeviceContext(), m_FloorModel->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix);
+	result = m_TextureShader->Render(m_D3D->GetDeviceContext(), 
+		m_FloorModel->GetIndexCount(), 
+		m_FloorModel->GetInstanceCount(), 
+		worldMatrix, viewMatrix, projectionMatrix,
+		m_FloorModel->GetTextureArray()[0]);
+
 	if (!result)
 	{
 		return false;
